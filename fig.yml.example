@@ -1,4 +1,4 @@
-# fig.yml for bucket
+# fig.yml for gitmill
 # most important customization is to change mount source
 # for the data volume in each container
 
@@ -6,7 +6,8 @@
 ssh:
   build: ssh
   volumes:
-  - "data:/data"
+  - "/mnt/storage/gitmill/data:/data"
+  - "/var/log/gitmill:/var/log"
   ports:
   - "22:22"
   links:
@@ -16,9 +17,10 @@ ssh:
 nginx:
   build: nginx
   volumes:
-  - "data:/data"
+  - "/mnt/storage/gitmill/data:/data"
+  - "/var/log/gitmill:/var/log"
   ports:
-  - "80:80"
+  - "127.0.0.1:82:80"
   links:
   - fcgi
   - django
@@ -27,26 +29,32 @@ nginx:
 fcgi:
   build: fcgi
   volumes:
-  - data:/data
+  - "/mnt/storage/gitmill/data:/data"
+  - "/var/log/gitmill:/var/log"
 
 # django: this container runs gunicorn for django
 django:
   build: django
   volumes:
-  - "data:/data"
+  - "/mnt/storage/gitmill/data:/data"
+  - "/var/log/gitmill:/var/log"
   links:
   - postgres
   - redis
   environment:
-    DJANGO_SETTINGS_MODULE: bucket.production
+    DJANGO_SETTINGS_MODULE: gitmill.production
 
 # postgres: database container
 postgres:
   image: postgres:9.4
   command: postgres
   volumes:
-  - "data/postgres:/var/lib/postgresql/data"
+  - "/mnt/storage/gitmill/postgres:/var/lib/postgresql/data"
+  - "/var/log/gitmill:/var/log"
 
 # redis: in memory caching container
 redis:
   image: dockerfile/redis
+  volumes:
+  - "/mnt/storage/gitmill/redis:/var/lib/redis"
+  - "/var/log/gitmill:/var/log"
