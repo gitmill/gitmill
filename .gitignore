@@ -3,5 +3,6 @@
 *.old
 *.db
 
+/tmp
 /data
 /fig.yml
