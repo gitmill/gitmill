@@ -1,0 +1,2 @@
+#!/bin/sh
+curl --header 'Host: django' http://django_1:8000/~/

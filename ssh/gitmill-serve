@@ -1,0 +1,99 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import sys
+import re
+import requests
+
+COMMANDS = {
+    'git-upload-pack': 'read',
+    'git upload-pack': 'read',
+    'git-receive-pack': 'write',
+    'git receive-pack': 'write',
+}
+
+PATH_PATTERN = re.compile(r'^\'/?(?P<username>[A-Za-z0-9_@+.\-]{1,30})/(?P<name>[^\x00-\x2c\x2f\x3a-\x40\x5b-\x5e\x60\x7b-\x7f\s]{1,64})\.git\'$')
+
+class Error(Exception):
+    """error."""
+    def __str__(self):
+        return 'gitmill-serve: %s' % self.__doc__
+
+class CommandMayNotContainNewlineError(Error):
+    """command may not contain newline."""
+
+class UnknownCommandError(Error):
+    """unknown command denied."""
+
+class UnsafeArgumentsError(Error):
+    """arguments to command look dangerous."""
+
+class AccessDenied(Error):
+    """access to repository is denied."""
+
+class NotFound(Error):
+    """repository not found."""
+
+def serve(id, command):
+    if '\n' in command:
+        raise CommandMayNotContainNewlineError()
+
+    try:
+        verb, args = command.split(None, 1)
+    except ValueError:
+        raise UnknownCommandError()
+
+    if verb == 'git':
+        try:
+            subverb, args = args.split(None, 1)
+        except ValueError:
+            raise UnknownCommandError()
+        verb = '%s %s' % (verb, subverb)
+
+    access = COMMANDS.get(verb, None)
+    if access is None:
+        raise UnknownCommandError()
+
+    match = PATH_PATTERN.match(args)
+    if match is None:
+        raise UnsafeArgumentsError()
+
+    username = match.group('username')
+    name = match.group('name')
+
+    url = 'http://django_1:8000/~/%d/%s/%s/%s/' % (id, access, username, name)
+    request = requests.get(url, headers={'Host': 'django'})
+
+    if request.status_code == 403:
+        raise AccessDenied()
+    if request.status_code == 404:
+        raise NotFound()
+    if request.status_code != 200:
+        raise Error()
+
+    return '%s \'/data/git/%s/%s.git\'' % (verb, username, name)
+
+def main():
+    parser = argparse.ArgumentParser(description='gitmill-serve')
+    parser.add_argument('id', metavar='ID', type=int, help='Identifier of the SSH key used for authentication.')
+    args = parser.parse_args()
+
+    command = os.environ.get('SSH_ORIGINAL_COMMAND', '')
+    if not command:
+        sys.stderr.write('gitmill-serve: user authenticated successfully, but shell access is not allowed.\n')
+        sys.stderr.flush()
+        sys.exit(1)
+
+    try:
+        command = serve(args.id, command)
+        os.execvp('git', ['git', 'shell', '-c', command])
+
+    except Error, e:
+        sys.stderr.write(str(e) + '\n')
+        sys.stderr.flush()
+
+    sys.exit(1)
+
+if __name__ == '__main__':
+    main()

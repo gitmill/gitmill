@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-22 07:19+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: repository/models.py:16 user/models.py:11
+msgid "name"
+msgstr "名称"
+
+#: repository/models.py:17
+msgid ""
+"Name of the repository, cannot contain special characters other than hyphens."
+msgstr "库的名称，除了横杠以外，不可其他包含特殊符号。"
+
+#: repository/models.py:20
+msgid "description"
+msgstr "描述"
+
+#: repository/models.py:29 user/models.py:27
+msgid "user"
+msgstr "用户"
+
+#: repository/models.py:30
+msgid ""
+"Owner of the repository. Repository path will be prefixed by owner's "
+"username."
+msgstr "隶属用户，库的路径将由该用户的用户名以及库的名称组成。"
+
+#: repository/models.py:37
+msgid "users"
+msgstr "用户"
+
+#: repository/models.py:38
+msgid "These users have right access to the repository."
+msgstr "这些用户拥有写入权限。"
+
+#: repository/models.py:44
+msgid "groups"
+msgstr "组"
+
+#: repository/models.py:45
+msgid "Users in these groups have right access to the repository."
+msgstr "属于这些组的用户拥有写入权限"
+
+#: repository/models.py:50
+msgid "is private"
+msgstr "保密"
+
+#: repository/models.py:51
+msgid "Restrict read access to specified users and groups."
+msgstr "只允许拥有写入权限的用户读取此库。"
+
+#: repository/models.py:55 user/models.py:32
+msgid "created"
+msgstr "创建时间"
+
+#: repository/models.py:56 user/models.py:33
+msgid "modified"
+msgstr "修改时间"
+
+#: repository/models.py:59
+msgid "repository"
+msgstr "库"
+
+#: repository/models.py:60
+msgid "repositories"
+msgstr "库"
+
+#: template/base.html:3
+msgid "Toggle navigation"
+msgstr "开关导航"
+
+#: template/base.html:3
+msgid "GitMill"
+msgstr ""
+
+#: user/models.py:19
+msgid "fingerprint"
+msgstr "指纹"
+
+#: user/models.py:22
+msgid "public key"
+msgstr "公匙"
+
+#: user/models.py:28
+msgid "Owner of the key."
+msgstr "密匙的隶属用户。"
+
+#: user/models.py:36
+msgid "key"
+msgstr "密匙"
+
+#: user/models.py:37
+msgid "keys"
+msgstr "密匙"

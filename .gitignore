@@ -1,0 +1,7 @@
+*~
+*.bak
+*.old
+*.db
+
+/data
+/fig.yml

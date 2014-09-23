@@ -1,0 +1,52 @@
+# fig.yml for bucket
+# most important customization is to change mount source
+# for the data volume in each container
+
+# ssh: this container runs sshd, allows git over ssh
+ssh:
+  build: ssh
+  volumes:
+  - "data:/data"
+  ports:
+  - "22:22"
+  links:
+  - django
+
+# nginx: this container runs the nginx server
+nginx:
+  build: nginx
+  volumes:
+  - "data:/data"
+  ports:
+  - "80:80"
+  links:
+  - fcgi
+  - django
+
+# fcgi: this container hosts the git-http-backend
+fcgi:
+  build: fcgi
+  volumes:
+  - data:/data
+
+# django: this container runs gunicorn for django
+django:
+  build: django
+  volumes:
+  - "data:/data"
+  links:
+  - postgres
+  - redis
+  environment:
+    DJANGO_SETTINGS_MODULE: bucket.production
+
+# postgres: database container
+postgres:
+  image: postgres:9.4
+  command: postgres
+  volumes:
+  - "data/postgres:/var/lib/postgresql/data"
+
+# redis: in memory caching container
+redis:
+  image: dockerfile/redis

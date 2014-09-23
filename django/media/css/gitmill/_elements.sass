@@ -1,0 +1,98 @@
+//
+// Some bootstrap fixes.
+//
+
+*
+  -ms-overflow-style: -ms-autohiding-scrollbar
+
+html
+  background: white
+  height: 100%
+  -webkit-font-smoothing: antialiased
+
+img
+  display: inline-block
+  background: transparent
+
+body
+  position: relative
+  height: 100%
+  background: transparent
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif
+  font-weight: 400
+  padding-top: 50px
+
+a
+  outline: none
+  color: #4b67a0
+  &:hover, &:focus
+    color: #4b67a0
+    outline: none
+
+//
+// Utilities.
+//
+
+.clear
+  clear: both
+
+.ellipsis
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.sp-left
+  margin-left: 5px
+
+.sp-left-2x
+  margin-left: 10px
+
+.sp-right
+  margin-right: 5px
+
+.sp-right-2x
+  margin-right: 10px
+
+.sp-around
+  margin: 5px
+
+.note
+  color: #999
+  text-shadow: 0 1px 0 rgba(255,255,255, 0.65)
+
+p.error
+  color: #b94a48
+
+.align-left
+  text-align: left
+
+.align-center
+  text-align: center
+
+.align-right
+  text-align: right
+
+.rounded
+  +border-radius(15%)
+
+.circled
+  +border-radius(50%)
+
+.offscreen
+  position: absolute
+  left: -10000%
+
+//
+//
+//
+
+.editor
+  position: relative
+  height: 500px
+  #editor
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 500px
+    font-size: 14pt

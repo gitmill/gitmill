@@ -1,0 +1,39 @@
+django:
+  build: ../django
+  volumes:
+  - "../django:/django"
+  - "../data:/data"
+  ports:
+  - "8000:8000"
+  command: >
+    sh -c "
+    python manage.py compilemessages &&
+    python manage.py collectstatic --noinput &&
+    python manage.py syncdb --noinput &&
+    sudo -u git python manage.py runserver 0.0.0.0:8000
+    "
+
+fcgi:
+  build: ../fcgi
+  volumes:
+  - "../data:/data"
+
+nginx:
+  build: ../nginx
+  volumes:
+  - "../data:/data"
+  ports:
+  - "80:80"
+  links:
+  - fcgi
+  - django
+
+ssh:
+  build: ../ssh
+  volumes:
+  - "../data:/data"
+  ports:
+  - "2222:22"
+  links:
+  - django
+
