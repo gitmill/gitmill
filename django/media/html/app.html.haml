@@ -14,17 +14,19 @@
             %span.icon-bar<>
             %span.icon-bar<>
             %span.icon-bar<>
-          {% templatetag openvariable %}#link-to 'index' class="navbar-brand"{% templatetag closevariable %}{% include "logo.html" %}
+          {% verbatim %}{{#link-to 'index' class="navbar-brand"}}{% endverbatim %}{% include "inc/logo.inc.html" %}
           %span<> {% trans "<b>Git</b>Mill" %}
-          {% templatetag openvariable %}/link-to{% templatetag closevariable %}
+          {% verbatim %}{{/link-to}}{% endverbatim %}
         .navbar-collapse.collapse<>
-    .content<> {% templatetag openvariable %}outlet{% templatetag closevariable %}
+    .content<> {% verbatim %}{{outlet}}{% endverbatim %}
+
 %script#index{type: "text/x-handlebars"}<>
-  .container<>
-    %p<> {% templatetag openvariable %}#link-to 'index'{% templatetag closevariable %}Hello world!{% templatetag openvariable %}/link-to{% templatetag closevariable %}
-    %p<> {% templatetag openvariable %}#link-to 'about'{% templatetag closevariable %}About{% templatetag openvariable %}/link-to{% templatetag closevariable %}
+  {% include "page/index.html" %}
 %script#about{type: "text/x-handlebars"}<>
-  .container<>
-    %p<> This is about page.
-    %p<> {% templatetag openvariable %}#link-to 'index'{% templatetag closevariable %}Home{% templatetag openvariable %}/link-to{% templatetag closevariable %}
+  {% include "page/about.html" %}
+%script#user{type: "text/x-handlebars"}<>
+  {% include "user/user.html" %}
+%script#repository{type: "text/x-handlebars"}<>
+  {% include "repository/repository.html" %}
+
 {% endblock %}

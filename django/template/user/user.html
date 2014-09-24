@@ -1,0 +1,1 @@
+<div class="container"><p>{% verbatim %}{{last_name}}-{{first_name}}-{{id}}-{{repositories.length}}{% endverbatim %}</p><p>{% verbatim %}{{#each repositories}}{{#link-to 'repository' this}}{{name}}{{/link-to}}{{/each}}{% endverbatim %}</p><p>{% verbatim %}{{#link-to 'index'}}{% endverbatim %}Home{% verbatim %}{{/link-to}}{% endverbatim %}</p></div>

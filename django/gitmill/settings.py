@@ -70,6 +70,7 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT, 'template'),
 )
 
+APPEND_SLASH = False
 ROOT_URLCONF = 'gitmill.urls'
 WSGI_APPLICATION = 'gitmill.wsgi.application'
 

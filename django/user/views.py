@@ -1,6 +1,6 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 from user.decorators import user_view
 
 @user_view
 def user(request, user, **kwargs):
-    return HttpResponse()
+    return render(request, 'app.html')

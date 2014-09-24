@@ -4,15 +4,16 @@ GITMILL_SOURCES = \
 	debug.js \
 	jquery/jquery.js \
 	jquery/jquery.cookie.coffee.js \
-	handlebars.js \
-	ember.js \
+	ember/handlebars.js \
+	ember/ember.js \
+	ember/ember.data.js \
 	moment.js \
 	bootstrap/bootstrap.js \
 	gitmill/gitmill.coffee.js \
-	gitmill/gitmill.locale.coffee.js \
 	gitmill/gitmill.utils.coffee.js \
-	gitmill/gitmill.ajax.coffee.js \
-	gitmill/gitmill.app.coffee.js \
+	gitmill/gitmill.locale.coffee.js \
+	gitmill/gitmill.user.coffee.js \
+	gitmill/gitmill.repository.coffee.js \
 
 .PHONY: all
 all: debug
